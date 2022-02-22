@@ -1,14 +1,15 @@
 //import react and react-dom
 import React from "react";
 import ReactDOM from "react-dom";
+import SeasonDisplay from "./components/SeasonDisplay";
+import Loader from "./components/Loader";
 //create app component
 
 class App extends React.Component {
-  constructor(props) {
-    //intialize super
-    super(props);
-    //setup initial state
-    this.state = { lat: null, test: "yeet", errorMessage: "" };
+  state = { lat: null, test: "yeet", errorMessage: "" };
+
+  componentDidMount() {
+    console.log("component did mount");
     //geolocation api
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -25,16 +26,20 @@ class App extends React.Component {
     );
   }
 
+  componentDidUpdate() {
+    console.log("component did update");
+  }
+
   render() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
 
     if (!this.state.errorMessage && this.state.lat) {
-      return <div>Latitude: {this.state.lat}</div>;
+      return <SeasonDisplay lat={this.state.lat}></SeasonDisplay>;
     }
 
-    return <div>Loading......</div>;
+    return <Loader msg="Allow to read your location"></Loader>;
   }
 }
 //display app component
