@@ -30,7 +30,7 @@ class App extends React.Component {
     console.log("component did update");
   }
 
-  render() {
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -40,6 +40,10 @@ class App extends React.Component {
     }
 
     return <Loader msg="Allow to read your location"></Loader>;
+  }
+
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 //display app component
